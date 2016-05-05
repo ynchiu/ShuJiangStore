@@ -1,0 +1,5 @@
+20160429
+1. Implemented optimizers: SGD, Adagrad, RMSProp, Adam.
+2. LSTM implemented.
+20160501
+1. Q-network implemented.
