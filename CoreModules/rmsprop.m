@@ -20,7 +20,7 @@ function [  net,res,opts ] = rmsprop(  net,res,opts )
     end
     
     if ~isfield(opts.parameters,'clip')
-        opts.parameters.eps=1e1;
+        opts.parameters.clip=1e1;
     end
     net.mom_factor=net.mom_factor*opts.parameters.mom+(1-opts.parameters.mom);
     
