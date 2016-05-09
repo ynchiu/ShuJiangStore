@@ -3,3 +3,8 @@
 2. LSTM implemented.
 20160501
 1. Q-network implemented.
+20160505
+1. Intermediate network parameters are saved by modifying the TrainScript.
+20160509
+1. Updated LSTM training. 
+2. Experiments are now separated in different folders. A RunAll.m script is provided to run all experiments at once.

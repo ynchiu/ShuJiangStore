@@ -4,7 +4,7 @@ LightNet is a lightweight, versatile and purely Matlab-based deep learning frame
 
 ## How to use LightNet
 
-The documentation can be found in the Documentation folder.
+A documentation can be found in the 'Documentation' folder.
 
 The major examples starts with "Main*", the code is mostly written in a self-explanatory way. Have fun!
 

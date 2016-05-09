@@ -13,7 +13,7 @@ addpath('../CoreModules');
 
 addpath('./lm_data');
 
-n_epoch=15; %%training epochs
+n_epoch=20; %%training epochs
 dataset_name='char'; % dataset name
 network_name='lstm';
 use_gpu=0; %%use gpu or not 
@@ -27,10 +27,10 @@ use_selective_sgd=0; %automatically select learning rates
 %ssgd_search_freq=10; %select new coarse-scale learning rates every n epochs
 
 
-learning_method=@rmsprop; %training method: @sgd,@adaptive_sgd_ew;
+learning_method=@adam; %training method: @rmsprop;
 
 %sgd parameter (unnecessary if selective-sgd is used)
-sgd_lr=1e-1;
+sgd_lr=1e-2;
 
 
 
@@ -90,11 +90,11 @@ opts=generate_output_filename(opts);
 
 if(opts.use_gpu)       
     for i=1:length(net)
-        net(i)=vl_simplenn_move(net(i),'gpu');
+        net{i}=vl_simplenn_move(net{i},'gpu');
     end
 else
     for i=1:length(net)
-        net(i)=vl_simplenn_move(net(i),'cpu');
+        net{i}=vl_simplenn_move(net{i},'cpu');
     end
 end
 
@@ -138,8 +138,11 @@ for ep=start_ep:opts.n_epoch
     %}
     parameters=opts.parameters;    
     results=opts.results;
-    save([fullfile(opts.output_dir,opts.output_name)],'net','parameters','results');     
+    save([fullfile(opts.output_dir2,[opts.output_name2,num2str(ep),'.mat'])],'net','parameters','results');     
 end
+
+copyfile(fullfile(opts.output_dir2,[opts.output_name2,num2str(ep),'.mat']),fullfile(opts.output_dir,opts.output_name));
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

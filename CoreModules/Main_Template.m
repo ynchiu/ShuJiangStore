@@ -41,7 +41,7 @@ learning_method=@sgd; %training method: @sgd,@adagrad,@rmsprop,@adam
 
 
 %opts=[];
-
+addpath('./CoreModules');
 opts.n_epoch=n_epoch; %training epochs
 opts.dataset_name=dataset_name; %dataset name
 opts.network_name=network_name; %network name

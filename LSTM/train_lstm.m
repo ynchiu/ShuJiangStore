@@ -84,15 +84,11 @@ function [net,opts]=train_lstm(net,opts)
         
         
         %apply gradients
-        for i=1:4
-            if (~isfield(net(i),'mom_factor')||isempty(net(i).mom_factor))
-                net(i).mom_factor=0; 
-            end
-        end
-        [  net(1),res.Gate,opts ] = opts.parameters.learning_method( net(1),res.Gate,opts );
-        [  net(2),res.Input,opts ] = opts.parameters.learning_method( net(2),res.Input,opts );
-        [  net(3),res.Cell,opts ] = opts.parameters.learning_method( net(3),res.Cell,opts );  
-        [  net(4),res.Fit,opts ] = opts.parameters.learning_method( net(4),res.Fit,opts );
+
+        [  net{1},res.Gate,opts ] = opts.parameters.learning_method( net{1},res.Gate,opts );
+        [  net{2},res.Input,opts ] = opts.parameters.learning_method( net{2},res.Input,opts );
+        [  net{3},res.Cell,opts ] = opts.parameters.learning_method( net{3},res.Cell,opts );  
+        [  net{4},res.Fit,opts ] = opts.parameters.learning_method( net{4},res.Fit,opts );
      
         
     end

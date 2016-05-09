@@ -32,16 +32,16 @@ function [ net,res,opts ] = lstm_ff( net,inputs,opts )
         res.Input{f}(1).x=res.Gate{f}(1).x;
         
         %Gates
-        [ net(1),res.Gate{f},opts ] = net_ff( net(1),res.Gate{f},opts );
+        [ net{1},res.Gate{f},opts ] = net_ff( net{1},res.Gate{f},opts );
         
         %Input transform
-        [ net(2),res.Input{f},opts ] = net_ff( net(2),res.Input{f},opts ); 
+        [ net{2},res.Input{f},opts ] = net_ff( net{2},res.Input{f},opts ); 
         
         %Update cells
         res.Cell{f+1}(1).x=res.Gate{f}(end).x(1:n_cell_nodes,:).*res.Input{f}(end).x+res.Gate{f}(end).x(n_cell_nodes+1:2*n_cell_nodes,:).*res.Cell{f}(1).x;
 
         %Output transform
-        [ net(3),res.Cell{f+1},opts ] = net_ff( net(3),res.Cell{f+1},opts ); 
+        [ net{3},res.Cell{f+1},opts ] = net_ff( net{3},res.Cell{f+1},opts ); 
         res.Hidden{f+1}(1).x=res.Gate{f}(end).x(2*n_cell_nodes+1:3*n_cell_nodes,:).*res.Cell{f+1}(end).x;
         
         %Data fitting transform
@@ -49,7 +49,7 @@ function [ net,res,opts ] = lstm_ff( net,inputs,opts )
         if isfield(inputs,'labels')
             res.Fit{f}(1).class=inputs.labels(:,f);
         end
-        [ net(4),res.Fit{f},opts ] = net_ff( net(4),res.Fit{f},opts ); 
+        [ net{4},res.Fit{f},opts ] = net_ff( net{4},res.Fit{f},opts ); 
         if isfield(inputs,'labels')
             opts.err(:,f)=error_multiclass(res.Fit{f}(1).class,res.Fit{f});
         end
