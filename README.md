@@ -46,9 +46,9 @@ tanh_ln: implementation of the tanh layer.
 test_net: running the network in the testing mode to evaluate the current parameters.  
 train_net: running the network in the training mode to evaluate and calculate the loss and gradients.  
 TrainingScript: a training template for CNN and MLP networks.  
-vl_nnsoftmax: softmax layer borrowed from MatConvNet.  
-vl_nnsoftmaxloss: softmax log loss layer borrowed from MatConvNet.  
-vl_simplenn_move: a switch function between CPU and GPU adapted from MatConvNet.  
+softmax: implementation of the softmax layer.  
+vl_nnsoftmaxloss: implementation of the softmax log loss layer .  
+SwitchHardware: a switch function between CPU and GPU.  
 
 
 

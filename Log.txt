@@ -8,3 +8,5 @@
 20160509
 1. Updated LSTM training. 
 2. Experiments are now separated in different folders. A RunAll.m script is provided to run all experiments at once.
+20160511
+1.Simplified implementation of loss functions.
