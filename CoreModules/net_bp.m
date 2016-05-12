@@ -68,11 +68,7 @@ function [ net,res,opts ] = net_bp( net,res,opts )
                 res(layer).dzdx = maxpool(res(layer).x, net.layers{1,layer}.K, net.layers{1,layer}.stride,net.layers{1,layer}.pad,res(layer+1).dzdx,res(layer+1).from);
 
             case 'softmaxloss'
-                res(layer).dzdx = vl_nnsoftmaxloss(res(layer).x, res(1).class, res(layer+1).dzdx) ;
-
-                if(length(size(res(1).x))==2)%%mlp network
-                   res(layer).dzdx=permute(res(layer).dzdx,[3,4,1,2]);
-                end
+                res(layer).dzdx = softmaxlogloss(res(layer).x, res(1).class, res(layer+1).dzdx) ;
 
             case 'mshinge'
                 res(layer).dzdx = mshinge(res(layer).x, l.class, res(layer+1).dzdx) ;

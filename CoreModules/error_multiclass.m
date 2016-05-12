@@ -2,7 +2,11 @@
 function err = error_multiclass(labels, res)
 % -------------------------------------------------------------------------
 predictions = gather(res(end-1).x) ;
+if length(size(predictions))==2
+    predictions=permute(predictions,[3,4,1,2]);
+end
 [~,predictions] = sort(predictions, 3, 'descend') ;
+
 
 % be resilient to badly formatted labels
 if numel(labels) == size(predictions, 4)

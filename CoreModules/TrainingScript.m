@@ -23,11 +23,11 @@ opts.n_test_batch=floor(opts.n_test/opts.parameters.batch_size);
 
 if(opts.use_gpu)       
     for i=1:length(net)
-        net(i)=vl_simplenn_move(net(i),'gpu');
+        net(i)=SwitchHardware(net(i),'gpu');
     end
 else
     for i=1:length(net)
-        net(i)=vl_simplenn_move(net(i),'cpu');
+        net(i)=SwitchHardware(net(i),'cpu');
     end
 end
 

@@ -62,8 +62,8 @@ function [lr_best,min_cost] = select_learning_rate(net,opts )
 
                 %%collect stats
 
-                err=error_multiclass(res(1).class,res);
-                err=gather(err);
+                %err=error_multiclass(res(1).class,res);
+                %err=gather(err);
 
                 cost=gather(res(end).x/opts.parameters.batch_size);
 
