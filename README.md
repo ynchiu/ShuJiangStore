@@ -47,7 +47,7 @@ test_net: running the network in the testing mode to evaluate the current parame
 train_net: running the network in the training mode to evaluate and calculate the loss and gradients.  
 TrainingScript: a training template for CNN and MLP networks.  
 softmax: implementation of the softmax layer.  
-vl_nnsoftmaxloss: implementation of the softmax log loss layer .  
+softmaxlogloss: implementation of the softmax log loss layer .  
 SwitchHardware: a switch function between CPU and GPU.  
 
 
