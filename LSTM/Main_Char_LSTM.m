@@ -1,11 +1,11 @@
 clear all;
 
-%%%%%%%%%%%%%This example will need to be reorganized
+%%%%%%%%%%%This example will need to be reorganized%%%%%%%%%%%%%
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%provide parameters and inputs below
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%provide parameters and inputs below%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 addpath('../')
 
@@ -13,7 +13,7 @@ addpath('../CoreModules');
 
 addpath('./lm_data');
 
-n_epoch=20; %%training epochs
+n_epoch=20;%20 %%training epochs
 dataset_name='char'; % dataset name
 network_name='lstm';
 use_gpu=0; %%use gpu or not 
@@ -90,11 +90,11 @@ opts=generate_output_filename(opts);
 
 if(opts.use_gpu)       
     for i=1:length(net)
-        net{i}=vl_simplenn_move(net{i},'gpu');
+        net{i}=SwitchProcessor(net{i},'gpu');
     end
 else
     for i=1:length(net)
-        net{i}=vl_simplenn_move(net{i},'cpu');
+        net{i}=SwitchProcessor(net{i},'cpu');
     end
 end
 

@@ -1,4 +1,4 @@
-function net = SwitchHardware(net, hardware)
+function net = SwitchProcessor(net, hardware)
 switch hardware
   case 'gpu', moveop = @(x) gpuArray(x) ;
   case 'cpu', moveop = @(x) gather(x) ;

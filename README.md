@@ -1,6 +1,6 @@
 # LightNet: A Versatile, Standalone Matlab-based Environment for Deep Learning
 
-![The result](LightNet.png)
+![LightNet Icon](LightNet.png)
 
 LightNet is a lightweight, versatile and purely Matlab-based deep learning framework. The aim of the design is to provide an easy-to-understand, easy-to-use and efficient computational platform for deep learning research. The implemented framework supports major deep learning architectures such as the Multilayer Perceptron Networks (MLP), Convolutional Neural Networks (CNN) and Recurrent Neural Networks (RNN). The framework also supports both CPU and GPU for computation and the switch between them is straightforward. Different applications in computer vision, natural language processing and robotics are demonstrated as experiments.
 
@@ -42,13 +42,13 @@ rmsprop: implementation of the RMSProp algorithm.
 select_learning_rate: implementation of the Selective-SGD algorithm that automatically selects the optimal learning rate at the beginning or in the middle of the training.  
 sgd: implementation of the stochastic gradient descent algorithm with momentum.  
 sigmoid_ln: implementation of the sigmoid layer.  
+softmax: implementation of the softmax layer.  
+softmaxlogloss: implementation of the softmax log loss layer .  
+SwitchProcessor: a switch function between CPU and GPU.  
 tanh_ln: implementation of the tanh layer.  
 test_net: running the network in the testing mode to evaluate the current parameters.  
 train_net: running the network in the training mode to evaluate and calculate the loss and gradients.  
 TrainingScript: a training template for CNN and MLP networks.  
-softmax: implementation of the softmax layer.  
-softmaxlogloss: implementation of the softmax log loss layer .  
-SwitchHardware: a switch function between CPU and GPU.  
 
 
 
