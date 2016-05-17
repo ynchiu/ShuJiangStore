@@ -10,3 +10,5 @@
 2. Experiments are now separated in different folders. A RunAll.m script is provided to run all experiments at once.
 20160511
 1.Simplified implementation of loss functions.
+20160517
+1.Small fix in the tanh function.
