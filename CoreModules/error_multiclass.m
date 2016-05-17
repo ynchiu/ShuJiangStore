@@ -22,5 +22,6 @@ if size(labels,3) == 2
 end
 
 error = ~bsxfun(@eq, predictions, labels) ;
+error=gather(error);
 err(1,1) = sum(sum(sum(mass .* error(:,:,1,:)))) ;
 err(2,1) = sum(sum(sum(mass .* min(error(:,:,1:5,:),[],3)))) ;

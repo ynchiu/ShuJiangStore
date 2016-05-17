@@ -2,9 +2,7 @@ function Y = softmaxlogloss(X,c,dzdy)
 
 if(length(size(X))==4)
     sz = [size(X,1) size(X,2) size(X,3) size(X,4)] ;
-    if(sz(1)>1||sz(2)>1)
-       error('Size error in softmax log loss.') 
-    end
+    if(sz(1)>1||sz(2)>1) error('Size error in softmax log loss.'); end
     max_c=3;
 end
 if(length(size(X))==2)

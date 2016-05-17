@@ -4,7 +4,6 @@ function [ y, dzdw,dzdb,opts ] = fast_conv_layer( I,kernel,bias,stride,pad,dzdy,
 %calculate three ffts and iffts
 
 
-
 [i1,i2,in,b]=size(I);    
     
 if(~isempty(pad))
@@ -63,9 +62,6 @@ else
    
     %%calculate the 'valid' correlation+flipping    
  
-    
-    
-    
     [d1,d2,out,b]=size(dzdy);
     
     td=zeros(i1,i2,out,b,'like',dzdy);
@@ -75,12 +71,7 @@ else
     clear td;
     fdzdy=fft2(dzdy);
     dzdw=zeros(k1,k2,in,out,'like',I);
-    
-    %%insert the preconditioner here
-    
-    %%preconditioner end
-    
-    
+   
     
     for o=1:out
         
@@ -109,7 +100,6 @@ else
     
     %next line is a dirty circular shift, according to matlab fft implementation.
     y=circshift(y,[(k1-1),(k2-1)]); %another crazy shift
-
                
     if(~isempty(pad))
         y=y(1+pad(1):1+pad(1)+original_size_r-1,1+pad(3):1+pad(3)+original_size_c-1,:,:);

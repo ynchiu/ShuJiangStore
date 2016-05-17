@@ -37,6 +37,8 @@ function [ net,res,opts ] = net_ff( net,res,opts )
 
             case 'relu'
                 res(layer+1).x = relu(res(layer).x,[] );
+            case 'leaky_relu'
+                res(layer+1).x = leaky_relu(res(layer).x,[] );
             case 'sigmoid'
                 res(layer+1).x = sigmoid_ln(res(layer).x,[] );
             case 'tanh'
@@ -53,10 +55,6 @@ function [ net,res,opts ] = net_ff( net,res,opts )
                     end
                 else
                    net.layers{1,layer}.pad=[];
-                end
-                
-                if isfield(net.layers{1,layer},'S')
-                   net.layers{1,layer}.stride=net.layers{1,layer}.S;
                 end
                 
                 if isfield(net.layers{1,layer},'stride')

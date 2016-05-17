@@ -2,7 +2,9 @@ function [ net,res,opts ] = net_bp( net,res,opts )
 %NET_FF Summary of this function goes here
 %   Detailed explanation goes here
 
-    
+    if opts.use_gpu
+        opts.dzdy=gpuArray(single(opts.dzdy));
+    end    
     res(numel(net.layers)+1).dzdx = opts.dzdy ;
 
     for layer=numel(net.layers):-1:1
@@ -37,7 +39,8 @@ function [ net,res,opts ] = net_bp( net,res,opts )
                     
             case 'relu'
                 res(layer).dzdx = relu(res(layer).x, res(layer+1).dzdx) ;
-                
+            case 'leaky_relu'
+                res(layer).dzdx = leaky_relu(res(layer).x, res(layer+1).dzdx) ;   
             case 'sigmoid'
                 res(layer).dzdx = sigmoid_ln(res(layer).x,res(layer+1).dzdx );
             case 'tanh'
@@ -54,11 +57,7 @@ function [ net,res,opts ] = net_bp( net,res,opts )
                 else
                    net.layers{1,layer}.pad=[];
                 end
-                
-                if isfield(net.layers{1,layer},'S')
-                   net.layers{1,layer}.stride=net.layers{1,layer}.S;
-                end
-                
+                                
                 if isfield(net.layers{1,layer},'stride')
                     if(length(net.layers{1,layer}.stride)==1)
                         net.layers{1,layer}.stride=ones(1,2)*net.layers{1,layer}.stride;
@@ -70,10 +69,6 @@ function [ net,res,opts ] = net_bp( net,res,opts )
             case 'softmaxloss'
                 res(layer).dzdx = softmaxlogloss(res(layer).x, res(1).class, res(layer+1).dzdx) ;
 
-            case 'mshinge'
-                res(layer).dzdx = mshinge(res(layer).x, l.class, res(layer+1).dzdx) ;
-            case 'mhinge'
-                res(layer).dzdx = mhinge(res(layer).x, l.class, res(layer+1).dzdx) ;
 
         end
 

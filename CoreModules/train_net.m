@@ -1,15 +1,9 @@
 function [net,opts]=train_net(net,opts)
 
     opts.training=1;
-    %{
-    if strcmp(net.layers{end}.type,'softmax')
-        net.layers{end}.type='softmaxloss'; 
-    end
-    %}
-    
+
     if ~isfield(opts.parameters,'learning_method')
-        opts.parameters.learning_method='sgd';
-        
+        opts.parameters.learning_method='sgd';        
     end
     
     if ~isfield(opts,'display_msg')
@@ -18,24 +12,20 @@ function [net,opts]=train_net(net,opts)
     opts.MiniBatchError=[];
     opts.MiniBatchLoss=[];
 
-    
     tic
     
-    opts.order=randperm(opts.n_train);
-    
+    opts.order=randperm(opts.n_train);    
     if opts.parameters.selective_sgd==1         
          [ net,opts ] = selective_sgd( net,opts );
     end
 
-    
     for mini_b=1:opts.n_batch
                 
         idx=opts.order(1+(mini_b-1)*opts.parameters.batch_size:mini_b*opts.parameters.batch_size);
         
         if length(size(opts.train))==2%%train mlp                    
             res(1).x=opts.train(:,idx);
-        end
-        
+        end        
             
         if length(size(opts.train))==4%%train cnn
             res(1).x=opts.train(:,:,:,idx);
@@ -44,48 +34,48 @@ function [net,opts]=train_net(net,opts)
         if isfield(opts,'train_labels')
             res(1).class=opts.train_labels(idx);
         end
-        %forward
         
-        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%forward%%%%%%%%%%%%%%%%%%%
         [ net,res,opts ] = net_ff( net,res,opts );    
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
-            
-        %%%%backward
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%backward%%%%%%%%%%%%%%%%
         opts.dzdy=single(1.0);        
-        if opts.use_gpu
-            opts.dzdy=gpuArray(single(opts.dzdy));
-        end
         [ net,res,opts ] = net_bp( net,res,opts );
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
         
-        
-        %%summarize
+        %%summarize the current batch
         err=error_multiclass(res(1).class,res);
-        err=gather(err);
+        
         if opts.display_msg==1
             disp(['Minibatch error: ', num2str(err(1)./opts.parameters.batch_size),' Minibatch loss: ', num2str(res(end).x/opts.parameters.batch_size)])
         end
         opts.MiniBatchError=[opts.MiniBatchError;err(1)/opts.parameters.batch_size];
-        opts.MiniBatchLoss=[opts.MiniBatchLoss;gather(res(end).x/opts.parameters.batch_size)]; 
+        opts.MiniBatchLoss=[opts.MiniBatchLoss;gather(res(end).x/opts.parameters.batch_size)];         
         
-        opts.PreviousLoss=opts.MiniBatchLoss(end);
-        
-        
-
-  
-         %%%%%%%%%%%%%%%%%%%% here comes to the updating part;
-         if (~isfield(opts.parameters,'iterations'))
+        if (~isfield(opts.parameters,'iterations'))
             opts.parameters.iterations=0; 
         end
         opts.parameters.iterations=opts.parameters.iterations+1;
         
+        %%%%%%%%%%%%%%%%%%%% here comes to the updating part
         
-        %apply gradients
         
-        [  net,res,opts ] = opts.parameters.learning_method( net,res,opts );
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%stochastic gradients descent%%%%%%%%%%%%%%%%%%%%%%%%
+        [ net,res,opts ] = opts.parameters.learning_method( net,res,opts );
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
     end
     
+    %%summarize the current epoch
     opts.results.TrainEpochError=[opts.results.TrainEpochError;mean(opts.MiniBatchError(:))];
     opts.results.TrainEpochLoss=[opts.results.TrainEpochLoss;mean(opts.MiniBatchLoss(:))];
     

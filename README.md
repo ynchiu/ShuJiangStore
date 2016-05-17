@@ -6,7 +6,7 @@ LightNet is a lightweight, versatile and purely Matlab-based deep learning frame
 
 ## How to use LightNet
 
-Run the RunAll.m Matlab script.  
+Install the latest Matlab R2016a on a computer with an Nvidia GPU (at least 3GB GPU memory), and run the RunAll.m Matlab script.  
 Read the latest documentation here:  
 http://arxiv.org/abs/1605.02766  
 Have fun!  

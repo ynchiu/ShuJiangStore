@@ -1,15 +1,10 @@
 function [opts]=test_net(net,opts)
 
     opts.training=0;
-    if strcmp(net.layers{end}.type,'softmaxloss')
-        %net.layers{end}.type='softmax'; 
-    end
 
     opts.MiniBatchError=[];
     opts.MiniBatchLoss=[];
-    
- 
-    
+
     for mini_b=1:opts.n_test_batch
         
         idx=1+(mini_b-1)*opts.parameters.batch_size:mini_b*opts.parameters.batch_size;
@@ -22,12 +17,15 @@ function [opts]=test_net(net,opts)
         
         res(1).class=opts.test_labels(idx);
 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%forward%%%%%%%%%%%%%%%%%%%
         [ net,res,opts ] = net_ff( net,res,opts );
-
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
     
         err=error_multiclass(res(1).class,res);    
-
-        opts.MiniBatchError=[opts.MiniBatchError;gather(err(1)/opts.parameters.batch_size)];
+        opts.MiniBatchError=[opts.MiniBatchError;err(1)/opts.parameters.batch_size];
         opts.MiniBatchLoss=[opts.MiniBatchLoss;gather(res(end).x/opts.parameters.batch_size)]; 
       
     end
