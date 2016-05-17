@@ -23,11 +23,11 @@ opts.n_test_batch=floor(opts.n_test/opts.parameters.batch_size);
 
 if(opts.use_gpu)       
     for i=1:length(net)
-        net(i)=SwitchHardware(net(i),'gpu');
+        net(i)=SwitchProcessor(net(i),'gpu');
     end
 else
     for i=1:length(net)
-        net(i)=SwitchHardware(net(i),'cpu');
+        net(i)=SwitchProcessor(net(i),'cpu');
     end
 end
 
@@ -43,14 +43,14 @@ for ep=start_ep:opts.n_epoch
     opts.parameters.current_ep=opts.parameters.current_ep+1;
     disp(['Epoch ',num2str(ep),' testing error rate: ',num2str(opts.results.TestEpochError(end))])
     
-    %
+    
     if opts.plot
         subplot(1,2,1); plot(opts.results.TrainEpochError);hold on;plot(opts.results.TestEpochError);hold off;title('Error Rate per Epoch')
         subplot(1,2,2); plot(opts.results.TrainEpochLoss);hold on;plot(opts.results.TestEpochLoss);hold off;title('Loss per Epoch')
         drawnow;
     end
-    %}
-    parameters=opts.parameters;    
+    
+    parameters=opts.parameters;
     results=opts.results;
     save([fullfile(opts.output_dir2,[opts.output_name2,num2str(ep),'.mat'])],'net','parameters','results');     
 end
