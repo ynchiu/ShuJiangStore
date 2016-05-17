@@ -84,6 +84,12 @@ function [net,opts]=train_lstm(net,opts)
         
         
         %apply gradients
+        
+        for i=1:4
+            if (~isfield(net{i},'mom_factor')||isempty(net{i}.mom_factor))
+                net{i}.mom_factor=0;% this can avoid problems in older matlab versions, will be removed in a future release 
+            end
+        end
 
         [  net{1},res.Gate,opts ] = opts.parameters.learning_method( net{1},res.Gate,opts );
         [  net{2},res.Input,opts ] = opts.parameters.learning_method( net{2},res.Input,opts );
