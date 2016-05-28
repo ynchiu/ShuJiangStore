@@ -10,14 +10,9 @@ function [  net,res,opts ] = adam(  net,res,opts )
     if (~isfield(opts.parameters,'mom2'))
         opts.parameters.mom2=0.999; 
     end
-   
     
-    if (~isfield(net,'mom_factor'))
-        net.mom_factor=0; 
-    end
-    
-    if (~isfield(net,'mom_factor2'))
-        net.mom_factor2=0; 
+    if ~isfield(net,'iterations')
+        net.iterations=0;
     end
     
     if ~isfield(opts.results,'lrs')
@@ -28,6 +23,8 @@ function [  net,res,opts ] = adam(  net,res,opts )
     if ~isfield(opts.parameters,'eps')
         opts.parameters.eps=1e-8;
     end
+    
+    net.iterations=net.iterations+1;
    
      for layer=1:numel(net.layers)
         if strcmp(net.layers{layer}.type,'conv')||strcmp(net.layers{layer}.type,'mlp')
@@ -39,24 +36,23 @@ function [  net,res,opts ] = adam(  net,res,opts )
         end
      end
      
-    net.mom_factor=net.mom_factor*opts.parameters.mom+(1-opts.parameters.mom);
-    net.mom_factor2=net.mom_factor2*opts.parameters.mom2+(1-opts.parameters.mom2);
+    mom_factor=(1-opts.parameters.mom.^net.iterations);
+    mom_factor2=(1-opts.parameters.mom2.^net.iterations);
     
     
     for layer=1:numel(net.layers)
-        if strcmp(net.layers{layer}.type,'conv')||strcmp(net.layers{layer}.type,'mlp')
+        if isfield(net.layers{1,layer},'weights')
             
             net.layers{1,layer}.momentum{1}=opts.parameters.mom.*net.layers{1,layer}.momentum{1}+(1-opts.parameters.mom).*res(layer).dzdw;
             net.layers{1,layer}.momentum2{1}=opts.parameters.mom.*net.layers{1,layer}.momentum2{1}+(1-opts.parameters.mom).*res(layer).dzdw.^2;
             net.layers{1,layer}.weights{1}=net.layers{1,layer}.weights{1}-opts.parameters.lr*net.layers{1,layer}.momentum{1} ...
-                ./(net.layers{1,layer}.momentum2{1}.^0.5+opts.parameters.eps) .*net.mom_factor2^0.5./net.mom_factor ...
+                ./(net.layers{1,layer}.momentum2{1}.^0.5+opts.parameters.eps) .*mom_factor2^0.5./mom_factor ...
                 - opts.parameters.weightDecay * net.layers{1,layer}.weights{1};
-            
             
             net.layers{1,layer}.momentum{2}=opts.parameters.mom.*net.layers{1,layer}.momentum{2}+(1-opts.parameters.mom).*res(layer).dzdb;
             net.layers{1,layer}.momentum2{2}=opts.parameters.mom.*net.layers{1,layer}.momentum2{2}+(1-opts.parameters.mom).*res(layer).dzdb.^2;
             net.layers{1,layer}.weights{2}=net.layers{1,layer}.weights{2}-opts.parameters.lr*net.layers{1,layer}.momentum{2} ...
-                ./(net.layers{1,layer}.momentum2{2}.^0.5+opts.parameters.eps) .*net.mom_factor2^0.5./net.mom_factor;
+                ./(net.layers{1,layer}.momentum2{2}.^0.5+opts.parameters.eps) .*mom_factor2^0.5./mom_factor;
             
         end
     end

@@ -6,10 +6,6 @@ function [  net,res,opts ] = rmsprop(  net,res,opts )
         opts.parameters.weightDecay=1e-4;
     end
     
-    if (~isfield(net,'mom_factor'))
-        net.mom_factor=0; 
-    end
-    
     if ~isfield(opts.results,'lrs')
         opts.results.lrs=[];%%not really necessary
     end
@@ -22,21 +18,27 @@ function [  net,res,opts ] = rmsprop(  net,res,opts )
     if ~isfield(opts.parameters,'clip')
         opts.parameters.clip=1e1;
     end
-    net.mom_factor=net.mom_factor*opts.parameters.mom+(1-opts.parameters.mom);
     
-    %opts.results.lrs=[opts.results.lrs;mean(net.layers{1,1}.momentum{1}(:))];
+    if ~isfield(net,'iterations')
+        net.iterations=0;
+    end
+    
+    net.iterations=net.iterations+1;
+    
+    mom_factor=(1-opts.parameters.mom.^net.iterations);
+    
     for layer=1:numel(net.layers)
-        if strcmp(net.layers{layer}.type,'conv')||strcmp(net.layers{layer}.type,'mlp')
+        if isfield(net.layers{1,layer},'weights')
             
             net.layers{1,layer}.momentum{1}=opts.parameters.mom.*net.layers{1,layer}.momentum{1}+(1-opts.parameters.mom).*res(layer).dzdw.^2;
             
-            normalized_grad=res(layer).dzdw./(net.layers{1,layer}.momentum{1}.^0.5+opts.parameters.eps)./net.mom_factor;
+            normalized_grad=res(layer).dzdw./(net.layers{1,layer}.momentum{1}.^0.5+opts.parameters.eps)./mom_factor;
             mask=abs(normalized_grad)>opts.parameters.clip;
             normalized_grad(mask)=sign(normalized_grad(mask)).*opts.parameters.clip;
             net.layers{1,layer}.weights{1}=net.layers{1,layer}.weights{1}-opts.parameters.lr*normalized_grad- opts.parameters.weightDecay * net.layers{1,layer}.weights{1};
             
             net.layers{1,layer}.momentum{2}=opts.parameters.mom.*net.layers{1,layer}.momentum{2}+(1-opts.parameters.mom).*res(layer).dzdb.^2;
-            normalized_grad=res(layer).dzdb./(net.layers{1,layer}.momentum{2}.^0.5+opts.parameters.eps)./net.mom_factor;
+            normalized_grad=res(layer).dzdb./(net.layers{1,layer}.momentum{2}.^0.5+opts.parameters.eps)./mom_factor;
             mask=abs(normalized_grad)>opts.parameters.clip;
             normalized_grad(mask)=sign(normalized_grad(mask)).*opts.parameters.clip;
             net.layers{1,layer}.weights{2}=net.layers{1,layer}.weights{2}-opts.parameters.lr*normalized_grad;

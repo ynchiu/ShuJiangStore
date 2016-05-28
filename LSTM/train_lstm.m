@@ -68,7 +68,7 @@ function [net,opts]=train_lstm(net,opts)
         
         %%summarize
         if opts.display_msg==1 && isfield(opts,'train_labels')
-            disp([' Minibatch error: ', num2str(opts.err(1)), ' Minibatch loss: ', num2str(opts.err(2))])
+            disp([' Minibatch error: ', num2str(opts.err(1)), ' Minibatch loss: ', num2str(opts.loss(1))])
         end
         
         
@@ -86,8 +86,8 @@ function [net,opts]=train_lstm(net,opts)
         %apply gradients
         
         for i=1:4
-            if (~isfield(net{i},'mom_factor')||isempty(net{i}.mom_factor))
-                net{i}.mom_factor=0;% this can avoid problems in older matlab versions, will be removed in a future release 
+            if (~isfield(net{i},'iterations')||isempty(net{i}.iterations))
+                net{i}.iterations=0;% this can avoid problems in older matlab versions, will be removed in a future release 
             end
         end
 

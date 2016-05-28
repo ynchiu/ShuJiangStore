@@ -1,7 +1,7 @@
 function [ y,from ] = maxpool( I, K, S,pad,dzdy,from,opts )
 
 if exist('opts','var')
-   if ~isfield(opts.parameters,'eps_pool')
+   if ~isfield(opts,'parameters')||~isfield(opts.parameters,'eps_pool')
       opts.parameters.eps_pool=0.0; 
    end
 else

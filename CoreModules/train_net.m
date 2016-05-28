@@ -27,7 +27,7 @@ function [net,opts]=train_net(net,opts)
             res(1).x=opts.train(:,idx);
         end        
             
-        if length(size(opts.train))==4%%train cnn
+        if length(size(opts.train))>2%%train cnn
             res(1).x=opts.train(:,:,:,idx);
         end
                 
@@ -52,19 +52,17 @@ function [net,opts]=train_net(net,opts)
         
         %%summarize the current batch
         err=error_multiclass(res(1).class,res);
+        loss=gather(mean(res(end).x(:)));
         
         if opts.display_msg==1
-            disp(['Minibatch error: ', num2str(err(1)./opts.parameters.batch_size),' Minibatch loss: ', num2str(res(end).x/opts.parameters.batch_size)])
+            disp(['Minibatch error: ', num2str(err(1)./opts.parameters.batch_size),' Minibatch loss: ', num2str(loss)])
         end
         opts.MiniBatchError=[opts.MiniBatchError;err(1)/opts.parameters.batch_size];
-        opts.MiniBatchLoss=[opts.MiniBatchLoss;gather(res(end).x/opts.parameters.batch_size)];         
-        
+        opts.MiniBatchLoss=[opts.MiniBatchLoss;loss];                 
         if (~isfield(opts.parameters,'iterations'))
             opts.parameters.iterations=0; 
         end
         opts.parameters.iterations=opts.parameters.iterations+1;
-        
-        %%%%%%%%%%%%%%%%%%%% here comes to the updating part
         
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

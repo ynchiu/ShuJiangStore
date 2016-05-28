@@ -23,6 +23,7 @@ function [ net,res,opts ] = lstm_ff( net,inputs,opts )
  
     if isfield(inputs,'labels')
         opts.err=zeros(2,n_frames,'like',inputs.data);
+        opts.loss=zeros(1,n_frames,'like',inputs.data);
     end
     
     for f=1:n_frames
@@ -52,9 +53,11 @@ function [ net,res,opts ] = lstm_ff( net,inputs,opts )
         [ net{4},res.Fit{f},opts ] = net_ff( net{4},res.Fit{f},opts ); 
         if isfield(inputs,'labels')
             opts.err(:,f)=error_multiclass(res.Fit{f}(1).class,res.Fit{f});
+            opts.loss(:,f)=mean(res.Fit{f}(end).x(:));
         end
         
     end
     opts.err=mean(opts.err,2)./opts.parameters.batch_size;
+    opts.loss=mean(res.Fit{f}(end).x);
 end
 

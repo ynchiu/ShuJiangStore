@@ -5,14 +5,16 @@
 %
 clear all;
 
+SHOW_ANIMATION=0;%%if you want to visualize, set this to 1.
+
 %%%%initialize the network
 net=net_init_pole();
 
 Parameters=[];
 
 addpath('../CoreModules');
-SHOW_ANIMATION=0;
-SHOW_ANIMATION_Every_N=100;
+
+SHOW_ANIMATION_Every_N=100; %every n trials
 GAMMA   = 0.99;       % Discount factor for critic. 
 EPSILON = 0.05;
 ACTIONS = 2;
@@ -26,8 +28,9 @@ TrainErr=[];
 MaxSteps=[];
 steps = 0;
 failures=0;
+success=0;
 
-opts.use_gpu=0;
+opts.use_gpu=0;%don't use gpu for this application, since it will be slow
 opts.parameters.mom =0.9;
 opts.parameters.lr =1e1;
 opts.parameters.weightDecay=1e-6;
@@ -74,7 +77,7 @@ while (failures < MAX_FAILURES)
     
     while steps < MAX_STEPS && failed==0
 
-        if SHOW_ANIMATION&&mod(failures,SHOW_ANIMATION_Every_N)==0
+        if SHOW_ANIMATION&&(mod(failures,SHOW_ANIMATION_Every_N)==0||success)
             plot_Cart_Pole(x,theta)
         end
         %Choose action randomly, biased by current weight. 
@@ -174,7 +177,13 @@ while (failures < MAX_FAILURES)
 
     end
     if steps>=MAX_STEPS
-        break;
+        success=1;
+        if SHOW_ANIMATION==0
+            break;
+        else
+            steps=0;
+            continue;
+        end
     end
 
   end

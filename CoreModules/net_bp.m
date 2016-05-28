@@ -32,11 +32,14 @@ function [ net,res,opts ] = net_bp( net,res,opts )
                 
                 [res(layer).dzdx, res(layer).dzdw,res(layer).dzdb,opts] = fast_conv_layer( res(layer).x,net.layers{1,layer}.weights{1},net.layers{1,layer}.weights{2},net.layers{1,layer}.stride,net.layers{1,layer}.pad,res(layer+1).dzdx,opts );
                 
-                
-                
             case 'mlp'                             
                 [res(layer).dzdx, res(layer).dzdw,res(layer).dzdb] = fast_mlp_layer( res(layer).x,net.layers{1,layer}.weights{1},net.layers{1,layer}.weights{2},res(layer+1).dzdx );
-                    
+            
+            case 'bnorm'
+                [~,res(layer).dzdx,res(layer).dzdw,res(layer).dzdb] = bnorm( net,res(layer).x,layer,res(layer+1).dzdx ,opts );
+            case {'normalize', 'lrn'}
+                res(layer).dzdx = lrn(res(layer).x, net.layers{1,layer}.param(1),net.layers{1,layer}.param(2),net.layers{1,layer}.param(3),net.layers{1,layer}.param(4),res(layer+1).dzdx ) ;
+                        
             case 'relu'
                 res(layer).dzdx = relu(res(layer).x, res(layer+1).dzdx) ;
             case 'leaky_relu'
@@ -45,7 +48,6 @@ function [ net,res,opts ] = net_bp( net,res,opts )
                 res(layer).dzdx = sigmoid_ln(res(layer).x,res(layer+1).dzdx );
             case 'tanh'
                 res(layer).dzdx = tanh_ln(res(layer).x,res(layer+1).dzdx );
-                
             case 'pad'
                 [res(layer).x,res(layer).dzdx]=pad_data(res(layer+1).x,net.layers{1,layer}.pad,res(layer+1).dzdx);
             case 'pool'
@@ -64,7 +66,7 @@ function [ net,res,opts ] = net_bp( net,res,opts )
                     end
                 end
                 
-                res(layer).dzdx = maxpool(res(layer).x, net.layers{1,layer}.K, net.layers{1,layer}.stride,net.layers{1,layer}.pad,res(layer+1).dzdx,res(layer+1).from);
+                res(layer).dzdx = maxpool(res(layer).x, net.layers{1,layer}.pool, net.layers{1,layer}.stride,net.layers{1,layer}.pad,res(layer+1).dzdx,res(layer+1).from);
 
             case 'softmaxloss'
                 res(layer).dzdx = softmaxlogloss(res(layer).x, res(1).class, res(layer+1).dzdx) ;

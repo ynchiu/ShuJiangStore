@@ -26,7 +26,7 @@ function [opts]=test_net(net,opts)
     
         err=error_multiclass(res(1).class,res);    
         opts.MiniBatchError=[opts.MiniBatchError;err(1)/opts.parameters.batch_size];
-        opts.MiniBatchLoss=[opts.MiniBatchLoss;gather(res(end).x/opts.parameters.batch_size)]; 
+        opts.MiniBatchLoss=[opts.MiniBatchLoss;gather(mean(res(end).x(:)))]; 
       
     end
     

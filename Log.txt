@@ -12,4 +12,8 @@
 1.Simplified implementation of loss functions.
 20160517
 1.Small fix in the tanh function.
-1.Small fix in the train_lstm function to make it compatible with older matlab release.
+2.Small fix in the train_lstm function to make it compatible with older matlab release.
+20160528
+1. Pretrained ImageNet models are supported.
+2. Local response normalization added.
+3. Batch normalization added.

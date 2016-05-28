@@ -12,7 +12,7 @@ if isempty(dzdy)
     
     if ~isempty(bias)
         if numel(bias)==numel(y)
-            y=y+bias;%% much faster
+            y=y+bias;% much faster
         else
             y=bsxfun(@plus,y,bias);
         end
@@ -21,15 +21,13 @@ if isempty(dzdy)
 else    
     %backward mode
     
-    y=weight'*dzdy;
-    
+    y=weight'*dzdy;    
     if ~isempty(bias)
         dzdb=mean(dzdy,2);%minibatch averaging    
-    end
-    
+    end    
     dzdy=permute(dzdy,[1,3,2]);
-    I_p=permute(I,[3,1,2]);
-    dzdw=bsxfun(@times,dzdy,I_p);
+    I=permute(I,[3,1,2]);
+    dzdw=bsxfun(@times,dzdy,I);
     dzdw=mean(dzdw,3);
     
 end

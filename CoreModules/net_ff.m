@@ -9,7 +9,6 @@ function [ net,res,opts ] = net_ff( net,res,opts )
     
     for layer=1:numel(net.layers)
 
-       
         opts.current_layer=layer;
         switch net.layers{layer}.type
 
@@ -35,6 +34,11 @@ function [ net,res,opts ] = net_ff( net,res,opts )
             case 'mlp'
                 [res(layer+1).x,~,~] = fast_mlp_layer( res(layer).x,net.layers{1,layer}.weights{1},net.layers{1,layer}.weights{2},[] );
 
+            case 'bnorm'
+                [net,res(layer+1).x,~,~,opts] = bnorm( net,res(layer).x,layer,[],opts );
+            case {'normalize', 'lrn'}
+                res(layer+1).x = lrn(res(layer).x, net.layers{1,layer}.param(1),net.layers{1,layer}.param(2),net.layers{1,layer}.param(3),net.layers{1,layer}.param(4),[]) ;
+            
             case 'relu'
                 res(layer+1).x = relu(res(layer).x,[] );
             case 'leaky_relu'
@@ -64,14 +68,14 @@ function [ net,res,opts ] = net_ff( net,res,opts )
                 end
                 
                 if opts.training==1
-                    [res(layer+1).x,res(layer+1).from] = maxpool(res(layer).x,net.layers{1,layer}.K,net.layers{1,layer}.stride,net.layers{1,layer}.pad,[],[],opts);
+                    [res(layer+1).x,res(layer+1).from] = maxpool(res(layer).x,net.layers{1,layer}.pool,net.layers{1,layer}.stride,net.layers{1,layer}.pad,[],[],opts);
                 else
-                    [res(layer+1).x,~] = maxpool(res(layer).x,net.layers{1,layer}.K,net.layers{1,layer}.stride,net.layers{1,layer}.pad,[],[],opts);
+                    [res(layer+1).x,~] = maxpool(res(layer).x,net.layers{1,layer}.pool,net.layers{1,layer}.stride,net.layers{1,layer}.pad,[],[],opts);
                 end
             case 'softmaxloss'
                 res(layer+1).x = softmaxlogloss(res(layer).x, res(1).class) ;               
             case 'softmax'        
-                res(layer+1).x = nnsoftmax(res(layer).x) ;
+                res(layer+1).x = softmax(res(layer).x) ;
            
         end
     end

@@ -3,6 +3,9 @@ function [ y, dzdw,dzdb,opts ] = fast_conv_layer( I,kernel,bias,stride,pad,dzdy,
 %   Detailed explanation goes here
 %calculate three ffts and iffts
 
+if ~isfield(opts,'use_corr')||opts.use_corr==1
+   kernel=flip(flip(kernel,1),2);%most existing packages use corr instead of conv 
+end
 
 [i1,i2,in,b]=size(I);    
     
@@ -40,7 +43,7 @@ if isempty(dzdy)
     
     y = y(k1:end,k2:end,:,:);
     if ~isempty(bias)
-        bias_p=permute(bias,[4,3,2,1]);%%check this
+        bias_p=permute(bias(:),[4,3,1,2]);%%check this
         y=bsxfun(@plus,y,bias_p);
     end
     
@@ -99,7 +102,7 @@ else
     end
     
     %next line is a dirty circular shift, according to matlab fft implementation.
-    y=circshift(y,[(k1-1),(k2-1)]); %another crazy shift
+    y=circshift(y,[(k1-1),(k2-1)]); 
                
     if(~isempty(pad))
         y=y(1+pad(1):1+pad(1)+original_size_r-1,1+pad(3):1+pad(3)+original_size_c-1,:,:);

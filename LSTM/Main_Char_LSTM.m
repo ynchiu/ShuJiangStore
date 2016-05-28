@@ -1,11 +1,11 @@
 clear all;
 
-%%%%%%%%%%%This example will need to be reorganized%%%%%%%%%%%%%
+%%%%%%%%%%%%%This example will need to be reorganized
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%provide parameters and inputs below%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%provide parameters and inputs below
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 addpath('../')
 

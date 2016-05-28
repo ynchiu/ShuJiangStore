@@ -1,26 +1,31 @@
 clear all;
 cd('./MLP');
-disp('Test multilayer perceptron.')
+disp('Testing training a multilayer perceptron.')
 Main_MNIST_MLP_RMSPROP();
 cd ..
 
 clear all;
 
 cd('./ReinforcementLearning');
-disp('Test Q-network.')
+disp('Testing training a Q-network.')
 Main_Cart_Pole_Q_Network
 cd ..
 
 
 clear all;
 cd('./LSTM');
-disp('Test LSTM.')
+disp('Testing training an LSTM.')
 Main_Char_LSTM();
 cd ..
 
+clear all;
+cd('./CNN');
+disp('Testing using a pretrained ImageNet convolutional neural network model.')
+Main_CNN_ImageNet_minimal();
+cd ..
 
 clear all;
 cd('./CNN');
-disp('Test convolutional neural network.')
+disp('Testing training a new convolutional neural network.')
 Main_CIFAR_CNN_slow_SGD();
 cd ..

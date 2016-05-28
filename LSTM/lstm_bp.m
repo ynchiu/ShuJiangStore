@@ -16,7 +16,7 @@ function [ net,res,opts ] = lstm_bp( net,res,opts )
     end 
     
     
-    %2: BPTT calculate the gradient wrt memory cell 
+    %2: BPTT: calculate the gradient wrt memory cell 
 
     dzdct=0;%accumulated gradient in later time frames
     for f=n_frames:-1:1
