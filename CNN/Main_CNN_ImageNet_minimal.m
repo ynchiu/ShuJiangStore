@@ -12,10 +12,10 @@ end
 net = load('imagenet-vgg-f.mat') ;
 
 % obtain and preprocess an image
-im = imread('peppers.png') ;
+im = imread('IMG_9355.JPG') ;
 im_ = single(im) ; % note: 255 range
 im_ = imresize(im_, net.meta.normalization.imageSize(1:2)) ;
-im_ = im_ - net.meta.normalization.averageImage ;
+im_ = bsxfun(@minus,im_ , net.meta.normalization.averageImage) ;
 
 % run the CNN
 opts=[];

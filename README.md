@@ -24,17 +24,20 @@ If you find our work useful please cite it as:
 ## Recent updates
 
 LightNet now supports using pretrained ImageNet network models. 
+![coco](coco.png)
 
 
 ## Major functions in LightNet
 
 adagrad: implementation of the Adagrad algorithm.  
 adam: implementation of the Adam algorithm.  
+bnorm: implementation of the batch normalization layer.  
 fast_conv_layer: implementation of the convolution layer.  
 fast_mlp_layer: implementation of linear perceptron layer.  
 generate_output_filename: generate output filename based on the current parameter settings.  
 im2col_ln: customized im2col function used in the pooling layer.  
 Main_Template: a template script used to train CNN and MLP networks.  
+lrn: implementation of the local response normalization layer.  
 maxpool: implementation of the max-pooling layer.  
 net_bp: implementation of the back propagation process which is used in CNN and MLP networks.  
 net_ff: implementation of the feed forward process which is used in CNN and MLP networks.  
