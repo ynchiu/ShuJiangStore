@@ -25,6 +25,12 @@ If you find our work useful please cite it as:
 
 LightNet now supports using pretrained ImageNet network models. 
 
+Check CNN/Main_CNN_ImageNet_Minimal()
+
+An example recognition using imagenet-vgg-f pretrained net:
+
+![ImageNet Icon](ImageNetPreTrain.png)
+
 
 ## Major functions in LightNet
 
