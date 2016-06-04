@@ -17,3 +17,5 @@
 1. Pretrained ImageNet models are supported.
 2. Local response normalization added.
 3. Batch normalization added.
+20160604
+1. Small fix in the RNN training procedure.

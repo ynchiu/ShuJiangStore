@@ -73,7 +73,7 @@ function [net,opts]=train_lstm(net,opts)
         
         
         opts.MiniBatchError=[opts.MiniBatchError;gather( opts.err(1))];
-        opts.MiniBatchLoss=[opts.MiniBatchLoss;gather( opts.err(2))];
+        opts.MiniBatchLoss=[opts.MiniBatchLoss;gather( opts.loss)];
         
        
          %%%%%%%%%%%%%%%%%%%% here comes to the updating part;

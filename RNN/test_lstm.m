@@ -38,7 +38,7 @@ function [opts]=test_lstm(net,opts)
         end
 
         opts.MiniBatchError=[opts.MiniBatchError;gather(opts.err(1))];
-        opts.MiniBatchLoss=[opts.MiniBatchLoss;gather(opts.err(2))]; 
+        opts.MiniBatchLoss=[opts.MiniBatchLoss;gather(opts.loss)]; 
       
     end
     

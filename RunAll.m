@@ -13,7 +13,7 @@ cd ..
 
 
 clear all;
-cd('./LSTM');
+cd('./RNN');
 disp('Testing training an LSTM.')
 Main_Char_LSTM();
 cd ..
