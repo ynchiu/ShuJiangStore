@@ -91,10 +91,10 @@ function [net,opts]=train_lstm(net,opts)
             end
         end
 
-        [  net{1},res.Gate,opts ] = opts.parameters.learning_method( net{1},res.Gate,opts );
-        [  net{2},res.Input,opts ] = opts.parameters.learning_method( net{2},res.Input,opts );
-        [  net{3},res.Cell,opts ] = opts.parameters.learning_method( net{3},res.Cell,opts );  
-        [  net{4},res.Fit,opts ] = opts.parameters.learning_method( net{4},res.Fit,opts );
+        [  net{1},res.Gate,opts ] = feval( opts.parameters.learning_method,net{1},res.Gate,opts );
+        [  net{2},res.Input,opts ] = feval( opts.parameters.learning_method,net{2},res.Input,opts );
+        [  net{3},res.Cell,opts ] = feval( opts.parameters.learning_method,net{3},res.Cell,opts );  
+        [  net{4},res.Fit,opts ] = feval( opts.parameters.learning_method,net{4},res.Fit,opts );
      
         
     end
