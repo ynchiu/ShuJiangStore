@@ -3,7 +3,7 @@ function [ y, dzdw,dzdb,opts ] = fast_conv_layer( I,kernel,bias,stride,pad,dzdy,
 %   Detailed explanation goes here
 %calculate three ffts and iffts
 
-if isfield(opts,'use_corr')||opts.use_corr==1
+if isfield(opts,'use_corr')&&opts.use_corr==1
    kernel=flip(flip(kernel,1),2);%most existing packages use corr instead of conv 
 end
 
