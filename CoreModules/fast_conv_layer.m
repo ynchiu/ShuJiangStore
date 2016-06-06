@@ -2,9 +2,10 @@ function [ y, dzdw,dzdb,opts ] = fast_conv_layer( I,kernel,bias,stride,pad,dzdy,
 %FAST_CONV Summary of this function goes here
 %   Detailed explanation goes here
 %calculate three ffts and iffts
-
-if isfield(opts,'use_corr')&&opts.use_corr==1
+flip_kernel=0;
+if ~isfield(opts,'use_corr')||opts.use_corr==1
    kernel=flip(flip(kernel,1),2);%most existing packages use corr instead of conv 
+   flip_kernel=1;
 end
 
 [i1,i2,in,b]=size(I);    
@@ -83,7 +84,9 @@ else
         fft_corr=real(ifft2(fft_corr));
         dzdw(:,:,:,o)= fft_corr(1:k1,1:k2,:,:);% requires thorough understanding of fft, and the shifts 
     end    
-    dzdw=flip(flip(dzdw,1),2);
+    if ~flip_kernel
+        dzdw=flip(flip(dzdw,1),2);
+    end
     
     if ~isempty(bias)
         dzdb=sum(sum(mean(dzdy,4),1),2);   
