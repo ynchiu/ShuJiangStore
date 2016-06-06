@@ -21,4 +21,6 @@
 1. A small fix in the RNN training procedure.
 20160606
 1. A small fix in the RNN training procedure to make it compatible with older matlab Matlab versions.
+2. A severe bug in the convolutional layer introduced in the 20160528 version is fixed.
+
 
