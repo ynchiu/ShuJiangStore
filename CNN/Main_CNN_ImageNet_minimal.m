@@ -2,7 +2,7 @@
 % Minimalistic demonstration of how to run an ImageNet CNN model
 
 % setup toolbox
-addpath('../CoreModules')
+addpath(genpath('../CoreModules'))
 % download a pre-trained CNN from the web
 if ~exist('imagenet-vgg-f.mat', 'file')
   fprintf('Downloading a model ... this may take a while\n') ;
@@ -20,6 +20,8 @@ im_ = bsxfun(@minus,im_ , net.meta.normalization.averageImage) ;
 % run the CNN
 opts=[];
 opts.use_gpu=0;%unless you have a good gpu
+opts.use_cudnn=0; %Requires to compile MatConvNet to use it.
+
 opts.training=0;
 opts.use_corr=1;
 res(1).x=im_;

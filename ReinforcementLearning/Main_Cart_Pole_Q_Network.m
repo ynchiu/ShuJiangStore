@@ -12,7 +12,7 @@ net=net_init_pole();
 
 Parameters=[];
 
-addpath('../CoreModules');
+addpath(genpath('../CoreModules'));
 
 SHOW_ANIMATION_Every_N=100; %every n trials
 GAMMA   = 0.99;       % Discount factor for critic. 

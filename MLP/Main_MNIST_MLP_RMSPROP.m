@@ -1,5 +1,5 @@
 clear all;
-addpath('../CoreModules');
+addpath(genpath('../CoreModules'));
 n_epoch=20; %training epochs
 dataset_name='mnist'; %dataset name
 network_name='mlp'; %network name

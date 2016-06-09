@@ -9,7 +9,7 @@ clear all;
 
 addpath('../')
 
-addpath('../CoreModules');
+addpath(genpath('../CoreModules'));
 
 addpath('./lm_data');
 
