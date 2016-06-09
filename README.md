@@ -67,7 +67,7 @@ TrainingScript: a training template for CNN and MLP networks.
 
 CUDNN can be used to calculate convolutions.   
 To enable that:  
-1. please go to http://www.vlfeat.org/matconvnet/install/ to download and compile MatConvNet with the CUDNN support.  
-2. copy the folder 'MatConvNet_Dir/matlab/mex' into 'LightNet_Dir/CoreModules/mex'. You may need to copy some dynamic libraries in the CUDNN folder to the LightNet mex folder as well depending on your system.  
+1. Please go to http://www.vlfeat.org/matconvnet/install/ to download and compile MatConvNet with the CUDNN support.  
+2. Copy the folder 'MatConvNet_Dir/matlab/mex' into 'LightNet_Dir/CoreModules/mex'. You may need to copy some dynamic libraries in the CUDNN folder to the LightNet mex folder as well depending on your system.  
 3. Set opts.use_cudnn=1 in the main tesing script.  
 
