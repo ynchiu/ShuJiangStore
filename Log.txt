@@ -24,4 +24,5 @@
 2. A severe bug in the convolutional layer introduced in the 20160528 version is fixed.
 20160609
 1. Convolutions using CUDNN is supported.
-
+20160610
+1. A small fix in the LSTM loss.

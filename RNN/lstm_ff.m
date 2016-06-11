@@ -58,6 +58,6 @@ function [ net,res,opts ] = lstm_ff( net,inputs,opts )
         
     end
     opts.err=mean(opts.err,2)./opts.parameters.batch_size;
-    opts.loss=mean(res.Fit{f}(end).x);
+    opts.loss=mean(opts.loss(:));
 end
 
