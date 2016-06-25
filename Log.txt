@@ -26,3 +26,5 @@
 1. Convolutions using CUDNN is supported.
 20160610
 1. A small fix in the LSTM loss.
+20160624
+1. A small fix in the LSTM bp process.

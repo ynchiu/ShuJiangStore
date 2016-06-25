@@ -16,7 +16,7 @@ function [  net,res,opts ] = rmsprop(  net,res,opts )
     end
     
     if ~isfield(opts.parameters,'clip')
-        opts.parameters.clip=1e1;
+        opts.parameters.clip=1e0;
     end
     
     if ~isfield(net,'iterations')

@@ -86,8 +86,12 @@ if opts.parameters.selective_sgd==1
     opts.parameters.ssgd_search_freq=ssgd_search_freq;%%search every n epoch
     opts.parameters.selection_reset_freq=selection_reset_freq;%reset every n searches
     if ~isfield(opts.parameters,'lrs')
+        
         opts.parameters.lrs =[1,0.5];%initialize selection range
-        opts.parameters.lrs=[opts.parameters.lrs*10,opts.parameters.lrs,opts.parameters.lrs*1e-1,opts.parameters.lrs*1e-2,opts.parameters.lrs*1e-3];%initialize selection range
+        if ~strcmp(func2str(opts.parameters.learning_method),'sgd')
+            opts.parameters.lrs =opts.parameters.lrs.*1e-2;
+        end
+        opts.parameters.lrs=[opts.parameters.lrs,opts.parameters.lrs*1e-1,opts.parameters.lrs*1e-2,opts.parameters.lrs*1e-3];%initialize selection range
     end
     opts.parameters.selection_count=0;%initialize
     opts.parameters.selected_lr=[];%initialize
