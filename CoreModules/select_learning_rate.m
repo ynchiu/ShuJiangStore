@@ -11,20 +11,8 @@ function [lr_best,min_cost] = select_learning_rate(net,opts )
 
         net=temp_net;
         opts.parameters.lr=opts.parameters.lrs(l);%test the candidate learning rate
-        
-        if strcmp(func2str(opts.parameters.learning_method),'hybrid_sgd')
-            
-            for i=1:numel(net.layers)
-                 if strcmp(net.layers{i}.type,'bnorm')
-                     if isfield(net.layers{1,i},'lr')
-                        net.layers{1,i}.lr{1}=ones(size(net.layers{1,i}.weights{1}))*opts.parameters.lr;
-                        net.layers{1,i}.lr{2}=ones(size(net.layers{1,i}.weights{2}))*opts.parameters.lr;
-                     end
-                end
-            end
-            
-        end
-        
+        opts.reset_mom=1;
+        net.iterations=0;
 
         if (isfield(opts.parameters,'selected_lr') && length(opts.parameters.selected_lr)>0 && opts.parameters.lr>opts.parameters.selected_lr(1)) 
 
@@ -48,12 +36,8 @@ function [lr_best,min_cost] = select_learning_rate(net,opts )
 
                 %forward
                 [ net,res,opts ] = net_ff( net,res,opts );
-
-                
-                if isfield(opts.parameters,'selective_bp')&&opts.parameters.selective_bp==1
-                     [ net,res,opts ] = selective_bp( net,res,opts );
-                end
-
+    
+            
                 %%%%backward
                 opts.dzdy=single(1.0);
                 

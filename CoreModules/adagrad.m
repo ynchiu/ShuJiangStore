@@ -19,6 +19,12 @@ function [  net,res,opts ] = adagrad(  net,res,opts )
     for layer=1:numel(net.layers)
         if isfield(net.layers{1,layer},'weights')
             
+            if ~isfield(net.layers{1,layer},'momentum')||(isfield(opts,'reset_mom')&&opts.reset_mom==1)
+                net.layers{1,layer}.momentum{1}=zeros(size(net.layers{1,layer}.weights{1}),'like',net.layers{1,layer}.weights{1});
+                net.layers{1,layer}.momentum{2}=zeros(size(net.layers{1,layer}.weights{2}),'like',net.layers{1,layer}.weights{2});
+                opts.reset_mom=0;
+            end
+            
             net.layers{1,layer}.momentum{1}=net.layers{1,layer}.momentum{1}+res(layer).dzdw.^2;
             net.layers{1,layer}.weights{1}=net.layers{1,layer}.weights{1}-opts.parameters.lr*res(layer).dzdw./(net.layers{1,layer}.momentum{1}.^0.5+opts.parameters.eps)- opts.parameters.weightDecay * net.layers{1,layer}.weights{1};
             

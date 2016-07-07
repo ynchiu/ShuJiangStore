@@ -20,10 +20,9 @@ function [ net,res,opts ] = lstm_bp( net,res,opts )
 
     dzdct=0;%accumulated gradient in later time frames
     for f=n_frames:-1:1
-        %%the gradient here is the previous accumulated gradient + the one from the output gate 
-        opts.dzdy=dzdct+res.Gate{f}(end).x(2*n_cell_nodes+1:3*n_cell_nodes,:).*res.Fit{f}(1).dzdx;
+        opts.dzdy=res.Gate{f}(end).x(2*n_cell_nodes+1:3*n_cell_nodes,:).*res.Fit{f}(1).dzdx;
         [net{3},res.Cell{f+1},opts] = net_bp(net{3},res.Cell{f+1},opts);
-        %%bp to previous time frame
+        res.Cell{f+1}(1).dzdx=dzdct+res.Cell{f+1}(1).dzdx;
         dzdct=res.Cell{f+1}(1).dzdx.*res.Gate{f}(end).x(n_cell_nodes+1:2*n_cell_nodes,:);
     end
     res.Cell{1}(end+1).x=0;%just some padding
@@ -35,7 +34,7 @@ function [ net,res,opts ] = lstm_bp( net,res,opts )
         [net{2},res.Input{f},opts] = net_bp(net{2},res.Input{f},opts);
     end
     
-    %4: calculate the gradients of the input,forget,output gates:
+    %4: calculate the gradients of the input,forget,output Gate:
     for f=1:n_frames
         %input gate gradient;forget gate gradient; output gate gradient;
         opts.dzdy=[ res.Input{f}(end).x .*res.Cell{f+1}(1).dzdx;...

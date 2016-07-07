@@ -38,4 +38,5 @@ scores = squeeze(gather(res(end).x)) ;
 figure(1) ; clf ; imagesc(im) ;
 title(sprintf('%s (%d), score %.3f',...
    net.meta.classes.description{best}, best, bestScore)) ;
+drawnow;
 
