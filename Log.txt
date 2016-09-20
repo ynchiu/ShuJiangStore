@@ -32,3 +32,5 @@
 20160707
 1. A fix in the tanh_ln implementation.
 2. A fix in the LSTM inplementation.
+20160920
+1. Dropout layer added.

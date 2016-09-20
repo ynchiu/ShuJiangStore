@@ -34,6 +34,16 @@ function [ net,res,opts ] = net_ff( net,res,opts )
             case 'mlp'
                 [res(layer+1).x,~,~] = fast_mlp_layer( res(layer).x,net.layers{1,layer}.weights{1},net.layers{1,layer}.weights{2},[] );
 
+            case 'dropout'
+                if opts.training
+                    dropout_opts.rate=net.layers{1,layer}.rate;
+                    dropout_opts.mask=[];
+                    [res(layer+1).x,dropout_opts.mask]= dropout(res(layer).x,[],dropout_opts );
+                    net.layers{1,layer}.opts=dropout_opts;
+                else
+                    res(layer+1).x=res(layer).x;
+                end
+                
             case 'bnorm'
                 [net,res(layer+1).x,~,~,opts] = bnorm( net,res(layer).x,layer,[],opts );
             case {'normalize', 'lrn'}

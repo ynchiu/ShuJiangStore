@@ -1,5 +1,7 @@
 # LightNet: A Versatile, Standalone Matlab-based Environment for Deep Learning
 
+(Our work is accepted to ACM MULTIMEDIA 2016 Open Source Software Competition)
+
 ![LightNet Icon](LightNet.png)
 
 LightNet is a lightweight, versatile and purely Matlab-based deep learning framework. The aim of the design is to provide an easy-to-understand, easy-to-use and efficient computational platform for deep learning research. The implemented framework supports major deep learning architectures such as the Multilayer Perceptron Networks (MLP), Convolutional Neural Networks (CNN) and Recurrent Neural Networks (RNN). LightNet supports both CPU and GPU for computation and the switch between them is straightforward. Different applications in computer vision, natural language processing and robotics are demonstrated as experiments.
@@ -39,6 +41,7 @@ Convolutions can be accelerated with CUDNN thanks to the work from the MatConvNe
 adagrad: implementation of the Adagrad algorithm.  
 adam: implementation of the Adam algorithm.  
 bnorm: implementation of the batch normalization layer.  
+dropout: implementation of the dropout layer.  
 fast_conv_layer: implementation of the convolution layer.  
 fast_mlp_layer: implementation of linear perceptron layer.  
 generate_output_filename: generate output filename based on the current parameter settings.  
@@ -65,9 +68,10 @@ TrainingScript: a training template for CNN and MLP networks.
 
 ## How to accelerate LightNet
 
-CUDNN can be used to calculate convolutions.   
-To enable that:  
-1. Please go to http://www.vlfeat.org/matconvnet/install/ to download and compile MatConvNet with the CUDNN support.  
-2. Copy the folder 'MatConvNet_Dir/matlab/mex' into 'LightNet_Dir/CoreModules/mex'. You may need to copy some dynamic libraries in the CUDNN folder to the LightNet mex folder as well depending on your system.  
-3. Set opts.use_cudnn=1 in the main tesing script.  
+CUDNN can be used to calculate convolutions. You will need to compile the vl_nnconv function provided by MatConvNet team.  
+
+1. Please go to http://www.vlfeat.org/matconvnet/install/ to download.
+2. Copy the folder 'MatConvNet_Dir/matlab' into 'LightNet_Dir/CoreModules/matlab'.
+3. Try to compile MatConvNet in the LightNet directory (even though we only use one convolution function).   
+4. Set opts.use_cudnn=1 in the main tesing script.  
 

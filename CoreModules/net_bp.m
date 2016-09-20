@@ -35,6 +35,9 @@ function [ net,res,opts ] = net_bp( net,res,opts )
             case 'mlp'                             
                 [res(layer).dzdx, res(layer).dzdw,res(layer).dzdb] = fast_mlp_layer( res(layer).x,net.layers{1,layer}.weights{1},net.layers{1,layer}.weights{2},res(layer+1).dzdx );
             
+            case 'dropout'
+                [res(layer).dzdx,~]= dropout(res(layer).x,res(layer+1).dzdx,net.layers{1,layer}.opts);
+            
             case 'bnorm'
                 [~,res(layer).dzdx,res(layer).dzdw,res(layer).dzdb] = bnorm( net,res(layer).x,layer,res(layer+1).dzdx ,opts );
             case {'normalize', 'lrn'}
