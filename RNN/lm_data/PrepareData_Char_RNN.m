@@ -1,4 +1,4 @@
-function [ opts ] = PrepareData_Char_LSTM( opts )
+function [ opts ] = PrepareData_Char_RNN( opts )
 
 max_char=67;
 

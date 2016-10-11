@@ -15,7 +15,7 @@ cd ..
 clear all;
 cd('./RNN');
 disp('Testing training an LSTM.')
-Main_Char_LSTM();
+Main_Char_RNN();
 cd ..
 
 clear all;

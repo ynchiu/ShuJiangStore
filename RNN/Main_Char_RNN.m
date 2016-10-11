@@ -15,11 +15,25 @@ addpath('./lm_data');
 
 n_epoch=20;%20 %%training epochs
 dataset_name='char'; % dataset name
-network_name='lstm';
+network_name='lstm';%'rnn','gru','lstm';
 use_gpu=0; %%use gpu or not 
+opts.use_cudnn=0;
 
-PrepareDataFunc=@PrepareData_Char_LSTM; %%function handler to prepare your data
-NetInit=@net_init_char_lstm;  %% function to initialize the network
+PrepareDataFunc=@PrepareData_Char_RNN; %%function handler to prepare your data
+
+if strcmp(network_name,'lstm')
+    %opts.bnorm=1;
+    NetInit=@net_init_char_lstm;%_bn  %% function to initialize the network
+end
+   
+if strcmp(network_name,'gru')
+    NetInit=@net_init_char_gru;  %% function to initialize the network
+end
+
+if strcmp(network_name,'rnn')
+    NetInit=@net_init_char_rnn;  %% function to initialize the network
+    opts.parameters.Id_w=1;%vanilla rnn:0, otherwise: 1
+end
 
 
 use_selective_sgd=0; %automatically select learning rates
@@ -27,22 +41,28 @@ use_selective_sgd=0; %automatically select learning rates
 %ssgd_search_freq=10; %select new coarse-scale learning rates every n epochs
 
 
-learning_method=@adam; %training method: @rmsprop;
+learning_method=@rmsprop; %training method: @rmsprop;
 
 %sgd parameter (unnecessary if selective-sgd is used)
-sgd_lr=1e-2;
+sgd_lr=5e-2;
 
 
 
 
 opts.parameters.batch_size=100;
 opts.parameters.n_hidden_nodes=30;
-opts.parameters.n_hidden_layer_nodes=100;
 opts.parameters.n_cell_nodes=30;
 opts.parameters.n_input_nodes=67;
 opts.parameters.n_output_nodes=67;
-opts.parameters.n_gates=3;
-opts.parameters.n_frames=64;%%%%sentence length, may need to change in each call?
+if strcmp(network_name,'lstm')
+    opts.parameters.n_gates=3;
+end
+if strcmp(network_name,'gru')
+    opts.parameters.n_gates=2;
+end
+
+
+opts.parameters.n_frames=64;%%%%max sentence length
 
 opts.parameters.lr =sgd_lr;
 opts.parameters.mom =0.9;
@@ -124,8 +144,8 @@ end
 for ep=start_ep:opts.n_epoch
     
     
-    [net,opts]=train_lstm(net,opts);  
-    [opts]=test_lstm(net,opts);
+    [net,opts]=train_rnn(net,opts);  
+    [opts]=test_rnn(net,opts);
     opts.parameters.current_ep=opts.parameters.current_ep+1;
     disp(['Epoch ',num2str(ep),' testing error: ',num2str(opts.results.TestEpochError(end)), ' testing loss: ',num2str(opts.results.TestEpochLoss(end))])
     
