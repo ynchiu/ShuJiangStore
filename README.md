@@ -25,6 +25,8 @@ If you find our work useful please cite it as:
 
 ## Recent updates
 
+RNN (with skip links) and GRU are added to the RNN directory. 
+
 LightNet now supports using pretrained ImageNet network models. 
 ![coco](coco.png)
 
