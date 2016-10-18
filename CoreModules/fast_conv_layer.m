@@ -94,7 +94,7 @@ else
     
     td=zeros(i1,i2,out,b,'like',dzdy);
     
-    td(1:stride(1):d1,1:stride(2):d2,:,:)=dzdy;
+    td(1:stride(1):d1*stride(1),1:stride(2):d2*stride(2),:,:)=dzdy;
     dzdy=td;
     clear td;
     fdzdy=fft2(dzdy);
