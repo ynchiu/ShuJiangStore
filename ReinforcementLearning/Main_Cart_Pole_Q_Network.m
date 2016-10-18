@@ -14,9 +14,9 @@ Parameters=[];
 
 addpath(genpath('../CoreModules'));
 
-SHOW_ANIMATION_Every_N=100; %every n trials
+SHOW_ANIMATION_Every_N=200; %every n trials
 GAMMA   = 0.99;       % Discount factor for critic. 
-EPSILON = 0.05;
+EPSILON = 0.01; %changed from 0.05
 ACTIONS = 2;
 MaxUpdateDelay=50000;
 
