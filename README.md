@@ -1,6 +1,9 @@
 # LightNet: A Versatile, Standalone Matlab-based Environment for Deep Learning
 
-(Our work is accepted to ACM MULTIMEDIA 2016 Open Source Software Competition)
+Published in:
+MM '16 Proceedings of the 2016 ACM on Multimedia Conference
+Pages 1156-1159 
+ACM New York, NY, USA ©2016 
 
 ![LightNet Icon](LightNet.png)
 
@@ -16,12 +19,24 @@ Have fun!
 
 If you find our work useful please cite it as:  
 
-@article{ye2016lightnet,  
-  title={LightNet: A Versatile, Standalone Matlab-based Environment for Deep Learning},  
-  author={Ye, Chengxi and Zhao, Chen and Yang, Yezhou and Fermuller, Cornelia and Aloimonos, Yiannis},  
-  journal={arXiv preprint arXiv:1605.02766},  
-  year={2016}  
-}  
+@inproceedings{Ye:2016:LVS:2964284.2973791,
+ author = {Ye, Chengxi and Zhao, Chen and Yang, Yezhou and Ferm\"{u}ller, Cornelia and Aloimonos, Yiannis},
+ title = {LightNet: A Versatile, Standalone Matlab-based Environment for Deep Learning},
+ booktitle = {Proceedings of the 2016 ACM on Multimedia Conference},
+ series = {MM '16},
+ year = {2016},
+ isbn = {978-1-4503-3603-1},
+ location = {Amsterdam, The Netherlands},
+ pages = {1156--1159},
+ numpages = {4},
+ url = {http://doi.acm.org/10.1145/2964284.2973791},
+ doi = {10.1145/2964284.2973791},
+ acmid = {2973791},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {computer vision, convolutional neural networks, deep learning, image understanding, machine learning, multilayer perceptrons, natural language processing, recurrent neural networks, reinforcement learning},
+} 
+
 
 ## Recent updates
 
