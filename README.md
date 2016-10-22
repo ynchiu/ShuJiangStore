@@ -1,9 +1,7 @@
 # LightNet: A Versatile, Standalone Matlab-based Environment for Deep Learning
 
 Published in:
-MM '16 Proceedings of the 2016 ACM on Multimedia Conference
-Pages 1156-1159 
-ACM New York, NY, USA ©2016 
+MM '16 Proceedings of the 2016 ACM on Multimedia Conference, Pages 1156-1159, ACM New York, NY, USA
 
 ![LightNet Icon](LightNet.png)
 
