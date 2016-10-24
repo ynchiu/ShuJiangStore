@@ -1,6 +1,6 @@
 # LightNet: A Versatile, Standalone Matlab-based Environment for Deep Learning
 
-Chengxi Ye, Chen Zhao, Yezhou Yang, Cornelia Fermüller, and Yiannis Aloimonos. 2016. LightNet: A Versatile, Standalone Matlab-based Environment for Deep Learning. In Proceedings of the 2016 ACM on Multimedia Conference (MM '16). ACM, New York, NY, USA, 1156-1159. DOI: http://dx.doi.org/10.1145/2964284.2973791
+Chengxi Ye, Chen Zhao, Yezhou Yang, Cornelia Fermüller, and Yiannis Aloimonos. 2016. LightNet: A Versatile, Standalone Matlab-based Environment for Deep Learning. In Proceedings of the 2016 ACM on Multimedia Conference (MM '16). Amsterdam, The Netherlands, 1156-1159. DOI: http://dx.doi.org/10.1145/2964284.2973791
 
 ![LightNet Icon](LightNet.png)
 
