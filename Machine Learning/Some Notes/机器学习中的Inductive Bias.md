@@ -4,7 +4,7 @@ tags: Inductive Bias,Prior,机器学习
 grammar_cjkRuby: true
 ---
 test 
-
+test
 
 机器学习中的Inductive Bias介绍 
 机器学习算法中，假设学习器在预测中逼近正确的结果，其中包括在训练中未出现的样本。既然是未知的状况，结果可以是任意的结果，若没有其他假设，这任务就无法解决。这种关于目标函数的必要假设就称为*归纳偏置*。
