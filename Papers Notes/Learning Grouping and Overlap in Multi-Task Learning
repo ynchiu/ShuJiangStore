@@ -1,0 +1,5 @@
+---
+title: Learning Grouping and Overlap in Multi-Task Learning 论文笔记
+tags: 论文笔记，多任务学习
+---
+一个中心：Our method is based on the assumtion that task parameters within a group lie in a low dimensional subspace but allows the tasks in different groups to overlaap with each other in one or more based. 意思就是说同一个group的参数都会在同一个低纬度的子空间。但是也允许不同group的task有所重叠。
