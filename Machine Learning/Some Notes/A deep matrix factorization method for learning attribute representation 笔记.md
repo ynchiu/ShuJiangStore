@@ -12,7 +12,7 @@ grammar_cjkRuby: true
 
 # 对文章的疑问
 1. 为什么要多层？多层对于聚类效果而言有什么理论的解释或者可视化的方法吗？
-2. 因为如果要对深度非负矩阵分解进行正交约束，那么实质上也就等同于了k-Means聚类问题，那么相比聚类深度非负矩阵分解能够有什么优越性呢？
+2. 因为如果要对深度非负矩阵分解进行正交约束，那么实质上也就等同于了k-Means聚类问题，那么相比聚类深度非负矩阵分解能够有的优越性是？
 # 前言
 # 论点
 As Semi-NMF has a close relation to k-means clustering, Deep Semi-NMF also has a clustering interpretation according to the different laten attributes of our dataset, as demonstrated in Figure 2.   
