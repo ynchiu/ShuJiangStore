@@ -19,5 +19,7 @@ $$\min \sum_{i=1}^{K} \sum_{\mathbf{x}_j \in C_i} z_{ij} (\mathbf{x}_j - \mu_i )
 ```mathjax!
 $\mathbf{x} = ||\mathbf{X} - \mathbf{ZH`}||^2$
 ```
+其中，`!$\mathbf{Z} \in R^{+}, \mathbf{H} \in R^{+}$`
+
 
 [1]: http://ranger.uta.edu/~chqding/papers/NMF-SDM2005.pdf
