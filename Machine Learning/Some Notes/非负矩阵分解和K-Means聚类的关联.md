@@ -15,7 +15,9 @@ $$\min \sum_{i=1}^{K} \sum_{\mathbf{x}_j \in C_i} z_{ij} (\mathbf{x}_j - \mu_i )
 `!$z_{ij} = 1$`，当且仅当`!$x_j \in C_i$`时，因此我们这里构成的矩阵`!$\mathbf{Z}$`为一个**正交**的矩阵，而`!$\mathbf{M}$`的每一列则为每一类的聚类中心点向量。
 
 # 谈非负矩阵分解
-对于一个矩阵`!$\mathbf{X}$`，其中`!$X = [\]$`
-
+对于一个非负矩阵`!$\mathbf{X}$`，其中`!$X = [\mathbf{x}_1,\mathbf{x}_2,...,\mathbf{x}_m]$`代表有`!$m$`个样本。对非负矩阵`!$\mathbf{X}$`进行分解可得：
+```mathjax!
+$\mathbf{x} = ||\mathbf{X} - \mathbf{ZH`}||^2$
+```
 
 [1]: http://ranger.uta.edu/~chqding/papers/NMF-SDM2005.pdf
