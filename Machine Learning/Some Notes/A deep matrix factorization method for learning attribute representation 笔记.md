@@ -19,6 +19,8 @@ As Semi-NMF has a close relation to k-means clustering, Deep Semi-NMF also has a
 解释为何Deep Semi-NMF拥有多个不同属性的直觉感受？
 
 还有一个观点：对于k-means中，`!$\mathbf{H}$`应该是一个正交矩阵，这些正交矩阵可以看作是线性变换的基底，然后`!$\mathbf{Z}$`看作是不同类别的均值向量，但是为什么这里的`!$\mathbf{H}$`没有做成是正交的？
+文章认为，如果矩阵`!$\mathbf{H}$`不是正交的， 那么可以看作是一个软k-means聚类问题（soft clustering method）。
+
 
 - 降维效果的好坏能够衡量出来呢 ？也就是说如何可视化高纬的数据？  
 这里拟使用t-SNE的方法
